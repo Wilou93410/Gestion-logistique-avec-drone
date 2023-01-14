@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Informations carton</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Connectez-vous</h1>
+<!-- Formulaire de connexion de l'employé -->
+<div>
+    <h2>Connexion employé</h2>
+        <form action="connexionemploye.php" method="post">
+            <label for="title">nom</label>
+            <input type="text" id="nom" name="nom"> <br>
+            <label for="password">mot de passe</label>
+            <input type="text" id="password" name="password"> <br>
+            <button type="submit">Valider</button>
+        </form>
+</div>
+
+<!-- Formulaire de connexion de l'admin -->
+<div>
+    <h2>Connexion Admin</h2>
+        <form action="connexionadmin.php" method="post">
+        <label for="title">nom</label>
+            <input type="text" id="nom" name="nom"> <br>
+            <label for="prenom">mot de passe</label>
+            <input type="text" id="password" name="password"> <br>
+            <button type="submit">Valider</button>
+        </form>
+</div>
+
+
+</body>
