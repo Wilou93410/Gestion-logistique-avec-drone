@@ -28,6 +28,7 @@ if(isset($_POST['submit'])) {
     }
 }
 ?>
+<html>
 <form method="post">
     <label>Nom d'utilisateur :</label>
     <input type="text" name="username" required><br>
@@ -35,5 +36,7 @@ if(isset($_POST['submit'])) {
     <input type="password" name="password" required><br>
     <input type="submit" name="submit" value="Se connecter">
 </form>
-
+ 
+</html>
+<!--cette page permet d'effectuer la connexion des utilisateurs et de vérifié leurs identifiants, en fonctions de leurs rôles ca les renvoies sur une page soit admin soit employés. -->
 
