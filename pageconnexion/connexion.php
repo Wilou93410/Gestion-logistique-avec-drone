@@ -15,13 +15,13 @@ if(isset($_POST['submit'])) {
     if ($result->num_rows > 0) {
         
         // informations d'identification valides
-        // récupération de la valeur de "userrole" dans la base de données
+        // récupération de la valeur de "id_fonction" dans la base de données
         $row = $result->fetch_assoc();
-        $user_role = $row['userrole'];
+        $user_role = $row['id_fonction'];
         // démarrage de la session et stockage des informations d'utilisateur
         session_start();
         $_SESSION['username'] = $username;
-        $_SESSION['userrole'] = $user_role;
+        $_SESSION['id_fonction'] = $user_role;
         // redirection vers la page protégée
         header("Location: $user_role.php");
     } else {
