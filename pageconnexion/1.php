@@ -9,5 +9,6 @@
         <button type="button" onclick="window.location.href='modifadmin.php';">modifier</button>
         <button type="button" onclick="window.location.href='suppradmin.php';">supprimer</button>
         <button type="button" onclick="window.location.href='ajoutadmin.php';">ajouter</button>
+        <button type="button" onclick="window.location.href='utilisateur/createuser.php';">crée un utilisateur</button>
     </body>
 </html>
