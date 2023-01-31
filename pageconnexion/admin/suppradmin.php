@@ -2,14 +2,15 @@
 // Connexion à la base de données
 require 'conf.php';
 
-// Récupération des données de la table utilisateur
+// Récupération des données de la table "utilisateur"
 $sql = "SELECT * FROM utilisateur";
 $result = mysqli_query($dbh, $sql);
 $utilisateurs = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-// commande SQL et récupération de la valeur du formulaire
+// Vérification de la soumission du formulaire
 if (isset($_POST['utilisateur'])) {
     $username = $_POST['utilisateur'];
+    // Prepare and execute the SQL statement to delete the user
     $sql = "DELETE FROM utilisateur WHERE username = '$username'";
     mysqli_query($dbh, $sql);
 
@@ -19,7 +20,6 @@ if (isset($_POST['utilisateur'])) {
       echo "Erreur";}}
 
 ?>
-<!-- le formulaire --!>
 <!doctype html>
 <html lang="en">
   <head>
