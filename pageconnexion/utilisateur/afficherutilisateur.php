@@ -10,6 +10,7 @@ $utilisateurs = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 ?>
 <!doctype html>
+<link rel="stylesheet" href="style.css">
 <html lang="en">
   <head>
     <meta charset="utf-8">

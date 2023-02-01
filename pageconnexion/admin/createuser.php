@@ -23,6 +23,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['i
 <!-- formulaire de création d'utilisateur -->
 <!doctype html>
 <html lang="en">
+<link rel="stylesheet" href="style.css">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -2,6 +2,7 @@
 require 'connexion.php'
 ?>
 <html>
+<link rel="stylesheet" href="CSS/style.css">
 <form method="post">
     <label>Nom d'utilisateur :</label>
     <input type="text" name="username" required><br>

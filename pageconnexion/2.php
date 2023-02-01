@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="CSS/style.css">
     <head>
         <title>Employe</title>
     </head>
