@@ -2,10 +2,18 @@
 require 'connexion.php'
 ?>
 <html>
-<link rel="stylesheet" href="CSS/index.css">
+<link rel="stylesheet" href="CSS/index.scss">
 <form method="post">
 
-<H1>Page de connexion</H1>
+<link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+<h1>Page de connexion
+  <span
+     class="txt-rotate"
+     data-period="2000"
+     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
+</h1>
+
+
 
     <div class="textInputWrapper">
     <input type="text" name="username" placeholder="Nom d'utilisateur" class="TextInput" required>
@@ -16,7 +24,7 @@ require 'connexion.php'
     </div>
     <br>
 
-    <button type="submit" name="submit" class="btn"> se connecter </button>
+    <button type="submit" name="submit" class="btn">se connecter</button>
 
 </form>
  
