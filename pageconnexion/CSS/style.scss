@@ -22,7 +22,7 @@ text-align:center;
 
 p {
     font-family: "Lucida Console", Monaco, monospace;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 2px;
     word-spacing: 2px;
     color: #ff0000;
@@ -37,16 +37,22 @@ p {
 
 
     button {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 17px;
-      padding: 1em 2.7em;
-      font-weight: 500;
+      font-family: "Lucida Console", Monaco, monospace;
+      font-size: 20px;
+      padding: 0.7em 1.3em;
+      font-weight: 400;
       background: #1F2937;
       color: white;
       border: none;
       position: relative;
       overflow: hidden;
       border-radius: 0.6em;
+      letter-spacing: 2px;
+      word-spacing: 2px;
+      font-style: normal;
+    font-variant: small-caps;
+    text-align:center;
+
      }
      
      .gradient {
@@ -87,7 +93,7 @@ p {
       transform: scale(0.97);
      }
 
-     btnn {
+     .btnn {
       text-align:center;
      }
      
