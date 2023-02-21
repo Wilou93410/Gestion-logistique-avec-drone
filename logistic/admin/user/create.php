@@ -5,16 +5,21 @@ require 'conf.php';
 
 // Récupération des données de la table "fonction"
 $fonctions = $dbh->query('SELECT * FROM fonction');
+$sex = $dbh->query('SELECT * FROM identity');
 
 // Stockage des données du formulaire
-if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['id_fonction'])) {
-    $user = $_POST['username'];
+if (!empty($_POST['name']) && !empty($_POST['surname']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['idIdentity']) && !empty($_POST['idFonction'])) {
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
-    $id_fonction = $_POST['id_fonction'];
+    $id_identity = $_POST['idIdentity'];
+    $id_fonction = $_POST['idFonction'];
 
     // Insertion des données dans la table "utilisateur"
-    $sql = "INSERT INTO utilisateur (username, password, id_fonction) VALUES ('$user', '$password', '$id_fonction')";
 
+    $sql = "INSERT INTO user (name, surname, username, password, idIdentity, idFonction) VALUES ('$name', '$surname', '$username', '$password', '$id_identity', '$id_fonction')";
+    
     if ($dbh->query($sql) === TRUE) {
         echo "Données utilisateur insérées avec succès";
     } else {
@@ -32,19 +37,33 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['i
   <body>
 <H1>création d'utilisateur</H1>
   <form method="post">
-  <label for="user">Nom d'utilisateur :</label>
+  <label for="name">name :</label>
+  <input type="text" id="name" name="name" required>
+  <br><br>
+  <label for="surname">surname :</label>
+  <input type="text" id="surname" name="surname" required>
+  <br><br>
+  <label for="user">username :</label>
   <input type="text" id="username" name="username" required>
   <br><br>
-  <label for="password">Mot de passe :</label>
+  <label for="password">password :</label>
   <input type="password" id="password" name="password" required>
   <br><br>
 
-<select class="form-select" aria-label="Default select example" name="id_fonction" required>
-<?php foreach ($fonctions as $fonction): ?>
-    <option value="<?= $fonction['id_fonction']?>">fonction : <?= $fonction['fonction']?></option>
-    <?php endforeach; ?>
-    
+<select class="form-select" aria-label="Default select example" name="idIdentity" required>
+<?php foreach ($sex as $identity): ?>
+    <option value="<?= $identity['idIdentity']?>">sex : <?= $identity['sex']?></option>
+    <?php endforeach; ?>  
 </select>
+
+<br><br>
+
+<select class="form-select" aria-label="Default select example" name="idFonction" required>
+<?php foreach ($fonctions as $fonction): ?>
+    <option value="<?= $fonction['idFonction']?>">fonction : <?= $fonction['fonction']?></option>
+    <?php endforeach; ?>  
+</select>
+<br><br>
 <input type="submit" value="Envoyer">
 </form>
    
@@ -52,5 +71,6 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['i
 
     
 </footer>
+<br><br>
 <button onclick="window.location.href = '/pageconnexion/1.php';">Retour</button>
 </html>
