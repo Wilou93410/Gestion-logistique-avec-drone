@@ -1,24 +1,25 @@
 
 <?php 
 // Connexion à la base de données
-require 'conf.php';
+
+$dbh = new mysqli("localhost", "admin", "admin", "userscan");
 
 // Récupération des données de la table "fonction"
-$fonctions = $dbh->query('SELECT * FROM fonction');
-$sex = $dbh->query('SELECT * FROM identity');
+
+$droits = $dbh->query('SELECT * FROM droit');
 
 // Stockage des données du formulaire
-if (!empty($_POST['name']) && !empty($_POST['surname']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['idIdentity']) && !empty($_POST['idFonction'])) {
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $id_identity = $_POST['idIdentity'];
-    $id_fonction = $_POST['idFonction'];
 
+if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['pseudo']) && !empty($_POST['password']) && !empty($_POST['droit'])) {
+    $name = $_POST['nom'];
+    $surname = $_POST['prenom'];
+    $pseudo = $_POST['pseudo'];
+    $password = $_POST['password'];
+    $droit = $_POST['droit'];
+    
     // Insertion des données dans la table "utilisateur"
 
-    $sql = "INSERT INTO user (name, surname, username, password, idIdentity, idFonction) VALUES ('$name', '$surname', '$username', '$password', '$id_identity', '$id_fonction')";
+    $sql = "INSERT INTO utilisateurs (nom, prenom, pseudo, password, droit) VALUES ( '$name', '$surname', '$pseudo', '$password', '$droit')";
     
     if ($dbh->query($sql) === TRUE) {
         echo "Données utilisateur insérées avec succès";
@@ -37,30 +38,23 @@ if (!empty($_POST['name']) && !empty($_POST['surname']) && !empty($_POST['userna
   <body>
 <H1>création d'utilisateur</H1>
   <form method="post">
-  <label for="name">name :</label>
-  <input type="text" id="name" name="name" required>
+  <label for="nom">nom :</label>
+  <input type="text" id="nom" name="nom" required>
   <br><br>
-  <label for="surname">surname :</label>
-  <input type="text" id="surname" name="surname" required>
+  <label for="prenom">prenom :</label>
+  <input type="text" id="prenom" name="prenom" required>
   <br><br>
-  <label for="user">username :</label>
-  <input type="text" id="username" name="username" required>
+  <label for="pseudo">pseudo :</label>
+  <input type="text" id="pseudo" name="pseudo" required>
   <br><br>
   <label for="password">password :</label>
   <input type="password" id="password" name="password" required>
   <br><br>
 
-<select class="form-select" aria-label="Default select example" name="idIdentity" required>
-<?php foreach ($sex as $identity): ?>
-    <option value="<?= $identity['idIdentity']?>">sex : <?= $identity['sex']?></option>
-    <?php endforeach; ?>  
-</select>
-
-<br><br>
-
-<select class="form-select" aria-label="Default select example" name="idFonction" required>
-<?php foreach ($fonctions as $fonction): ?>
-    <option value="<?= $fonction['idFonction']?>">fonction : <?= $fonction['fonction']?></option>
+<P> 1 = Administrateur; 2 = Droit employés </p>
+<select class="form-select" aria-label="Default select example" name="droit" required>
+<?php foreach ($droits as $droit): ?>
+    <option value="<?= $droit['droit']?>">fonction : <?= $droit['droit']?></option>
     <?php endforeach; ?>  
 </select>
 <br><br>
