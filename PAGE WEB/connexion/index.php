@@ -1,38 +1,40 @@
 <?php
-
-require 'config/configuser.php'
-
+$dbh = new PDO('mysql:host=localhost;dbname=userscan', 'admin', 'admin');
 if(isset($_POST['submit'])) {
     // récupération des informations d'identification
-    $username = $_POST['username'];
+    $pseudo = $_POST['pseudo'];
     $password = $_POST['password'];
 
     // vérification des informations d'identification
-    $query = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
-    $result = $conn->query($query);
+    $query = "SELECT * FROM users WHERE pseudo = ? AND password = ?";
+    $stmt = $dbh->prepare($query);
+    $stmt->execute([$pseudo, $password]);
 
-    if ($result->num_rows > 0) {
-
-        $row = $result->fetch_assoc();
-        $user_role = $row['idFonction'];
+    if ($stmt->rowCount() > 0) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user_role = $row['permission'];
+        
         // démarrage de la session et stockage des informations d'utilisateur
         session_start();
-        $_SESSION['username'] = $username;
-        $_SESSION['idFonction'] = $user_role;
+        $_SESSION['pseudo'] = $pseudo;
+        $_SESSION['permission'] = $user_role;
 
-        if ($user_role = "1") {
-            header("location : admin/admin.php")
+        if ($user_role == "admin") {
+            header("Location: admin/admin.php");
+            exit;
         } 
-
-        if ($user_role = "2"){
-            header("location : user/user.php")
+        else if ($user_role == "user"){
+            header("Location: user/user.php");
+            exit;
         }
-      }
-         else {
+        else {
+            echo "Nom d'utilisateur ou mot de passe incorrect";
+        }
+    }
+    else {
         echo "Nom d'utilisateur ou mot de passe incorrect";
     }
 }
-
 ?>
 
 <html>
@@ -50,7 +52,7 @@ if(isset($_POST['submit'])) {
 
 
     <div class="textInputWrapper">
-    <input type="text" name="username" placeholder="Nom d'utilisateur" class="TextInput" required>
+    <input type="text" name="pseudo" placeholder="Nom d'utilisateur" class="TextInput" required>
     </div>
 
     <div class="textInputWrapper">
