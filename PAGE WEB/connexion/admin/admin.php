@@ -17,24 +17,24 @@
         <br>
 
         <div class ="btnn">  
-        <button type="button" onclick="window.location.href='crud/createuser.php';">
+        <button type="button" onclick="window.location.href='cruduser/createuser.php';">
         <span class="transition"></span>
         <span class="gradient"></span>
         <span class="label">crée un utilisateur</span>
         </button>
 
-        <button type="button" onclick="window.location.href='crud/readuser.php';">
+        <button type="button" onclick="window.location.href='cruduser/readuser.php';">
         <span class="transition"></span>
   <span class="gradient"></span>
   <span class="label">supprimer un utilisateur</span>
     </button>
 
-        <button type="button" onclick="window.location.href='crud/updateuser.php';">
+        <button type="button" onclick="window.location.href='cruduser/updateuser.php';">
         <span class="transition"></span>
   <span class="gradient"></span>
   <span class="label">ajouter un utilisateur</span>
 
-  <button type="button" onclick="window.location.href='crud/deleteuser.php';">
+  <button type="button" onclick="window.location.href='cruduser/deleteuser.php';">
         <span class="transition"></span>
   <span class="gradient"></span>
   <span class="label">supprimer un utilisateur</span>
