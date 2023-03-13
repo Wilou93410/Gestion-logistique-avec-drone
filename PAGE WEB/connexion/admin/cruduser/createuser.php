@@ -1,12 +1,11 @@
 <?php 
-// Connexion à la base de données
+
 $dbh = new PDO('mysql:host=localhost;dbname=userscan', 'admin', 'admin');
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Récupération des données de la table "fonction"
+
 $permissions = $dbh->query('SELECT * FROM permission');
 
-// Stockage des données du formulaire
 if (!empty($_POST['name']) && !empty($_POST['firstname']) && !empty($_POST['pseudo']) && !empty($_POST['password']) && !empty($_POST['permission'])) {
     $name = $_POST['name'];
     $surname = $_POST['firstname'];
@@ -14,7 +13,7 @@ if (!empty($_POST['name']) && !empty($_POST['firstname']) && !empty($_POST['pseu
     $password = $_POST['password'];
     $permission = $_POST['permission'];
     
-    // Insertion des données dans la table "utilisateur"
+   
     $stmt = $dbh->prepare("INSERT INTO users (name, firstname, pseudo, password, permission) VALUES (:name, :firstname, :pseudo, :password, :permission)");
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':firstname', $surname);
@@ -29,7 +28,7 @@ if (!empty($_POST['name']) && !empty($_POST['firstname']) && !empty($_POST['pseu
     }
 }
 ?>
-<!-- formulaire de création d'utilisateur -->
+
 <!doctype html>
 <html lang="en">
 <link rel="stylesheet" href="style.css">
