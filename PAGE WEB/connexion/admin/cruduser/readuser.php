@@ -1,34 +1,38 @@
 <?php
 // Connexion à la base de données
-require 'conf.php';
+require 'C:\xampp\htdocs\PAGE WEB\config\configadmin.php';
 
-// Récupération des données de la table "utilisateur"
-$sql = "SELECT * FROM user";
-$result = mysqli_query($dbh, $sql);
-$utilisateurs = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-
+// Récupération des données de la table "user"
+$sql = "SELECT * FROM users";
+$result = $dbh->query($sql);
+$users = $result->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!doctype html>
-<link rel="stylesheet" href="style.css">
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>affichage utilisateur</title>
+    <title>Affichage users</title>
   </head>
   <body>
-<h1>Utilisateur</h1>
-  <table>
-    <tr>
-    </tr>
-    <?php foreach ($utilisateurs as $utilisateur): ?>
+    <h1>Utilisateurs</h1>
+    
+    <table>
       <tr>
-        <td><?= $utilisateur['username'] ?></td>
+        <th>Pseudo</th>
+        <th>Nom</th>
+        <th>Prénom</th>
       </tr>
-    <?php endforeach; ?>
-  </table>
-  <footer>
-  </footer>
-  <button onclick="window.location.href = '/pageconnexion/index.php';">Retour</button>
+      <?php foreach ($users as $user): ?>
+        <tr>
+          <td><?= $user['pseudo'] ?></td>
+          <td><?= $user['name'] ?></td>
+          <td><?= $user['firstname'] ?></td>
+        </tr>
+      <?php endforeach; ?>
+    </table>
+      
+    <button onclick="window.location.href = '/pageconnexion/index.php';">Retour</button>
+  </body>
 </html>
