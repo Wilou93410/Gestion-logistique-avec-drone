@@ -13,9 +13,13 @@ $users = $result->fetchAll(PDO::FETCH_ASSOC);
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <LINK href="../../../style/style.css" rel="stylesheet" type="text/css">
     <title>Affichage users</title>
   </head>
   <body>
+  <style>
+    
+    </style>
     <h1>Utilisateurs</h1>
     
     <table>
@@ -23,16 +27,21 @@ $users = $result->fetchAll(PDO::FETCH_ASSOC);
         <th>Pseudo</th>
         <th>Nom</th>
         <th>Prénom</th>
+        <th>mot de passe</th>
+        <th>droit</th>
       </tr>
       <?php foreach ($users as $user): ?>
         <tr>
           <td><?= $user['pseudo'] ?></td>
           <td><?= $user['name'] ?></td>
           <td><?= $user['firstname'] ?></td>
+          <td><?= $user['password'] ?></td>
+          <td><?= $user['permission'] ?></td>
+          
         </tr>
       <?php endforeach; ?>
     </table>
       
-    <button onclick="window.location.href = '/pageconnexion/index.php';">Retour</button>
+    <button onclick="window.location.href = '../admin.php';">Retour</button>
   </body>
 </html>
