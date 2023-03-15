@@ -29,11 +29,17 @@ if (isset($_POST['user'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <LINK href="../../../style/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
     <title>Suppression d'utilisateur</title>
 </head>
 
 <body>
-    <h1>Suppression d'utilisateur</h1>
+<h1>Suppression d'utilisateurs
+  <span
+     class="txt-rotate"
+     data-period="2000"
+     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
+</h1>
     <form method="post">
         <select class="form-select" aria-label="Default select example" name="user" required>
             <?php foreach ($users as $user): ?>
