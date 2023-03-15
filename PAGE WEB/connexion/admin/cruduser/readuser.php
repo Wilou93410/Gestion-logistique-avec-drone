@@ -14,14 +14,19 @@ $users = $result->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <LINK href="../../../style/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
     <title>Affichage users</title>
   </head>
   <body>
   <style>
     
     </style>
-    <h1>Utilisateurs</h1>
-    
+    <h1>Utilisateurs
+  <span
+     class="txt-rotate"
+     data-period="2000"
+     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
+</h1>
     <table>
       <tr>
         <th>Pseudo</th>
