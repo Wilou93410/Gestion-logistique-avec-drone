@@ -40,7 +40,7 @@ if(isset($_POST['submit'])) {
 <html>
 <link rel="stylesheet" href="CSS/index.scss">
 <form method="post">
-
+<LINK href="../style/style.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
 <h1>Page de connexion
   <span
