@@ -43,12 +43,17 @@ if (isset($_POST['update_user'])) {
 <!DOCTYPE html>
 <html>
 <LINK href="../../../style/style.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
 <head>
     <title>Modifier un utilisateur</title>
 </head>
 <body>
-
-    <h1>Modifier un utilisateur</h1>
+<h1>Modifier un utilisateurs
+  <span
+     class="txt-rotate"
+     data-period="2000"
+     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
+</h1>
 
     <!-- Formulaire de sélection de l'utilisateur à modifier -->
     <h2>Sélectionner un utilisateur à modifier</h2>
