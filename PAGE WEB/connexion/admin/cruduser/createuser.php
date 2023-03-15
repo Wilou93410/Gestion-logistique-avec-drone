@@ -42,28 +42,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <LINK href="../../../style/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
     <title>création d'utilisateur</title>
   </head>
   <body>
-    <h1>création d'utilisateur</h1>
+  <h1>Création d'utilisateurs
+  <span
+     class="txt-rotate"
+     data-period="2000"
+     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
+</h1>
     
     <?php if(isset($_SESSION['error'])): ?>
         <div class="error"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
     <?php endif; ?>
    <div class='label'> 
     <form method="post">
-       
-        <input type="text" id="name" name="name" required placeholder='Nom'>
+    <div class="textInputWrapper">
+        <input type="text" id="name" name="name" required placeholder='Nom' class="TextInput">
         <br><br>
-       
-        <input type="text" id="firstname" name="firstname" required placeholder="Prénom">
+    </div>  
+    <div class="textInputWrapper">
+        <input type="text" id="firstname" name="firstname" required placeholder="Prénom" class="TextInput">
         <br><br>
-     
-        <input type="text" id="pseudo" name="pseudo" required placeholder="Pseudo">
+    </div>     
+    <div class="textInputWrapper">
+        <input type="text" id="pseudo" name="pseudo" required placeholder="Pseudo" class="TextInput">
         <br><br>
-      
-        <input type="password" id="password" name="password" required placeholder="Mot de passe"  minlength="8" maxlength="16">
+    </div> 
+    <div class="textInputWrapper">  
+        <input type="password" id="password" name="password" required placeholder="Mot de passe"  minlength="8" maxlength="16" class="TextInput">
         <br><br>
+    </div>
 <select class="form-select" aria-label="Default select example" name="permission" required>
 <?php foreach ($permissions as $permission): ?>
     <option value="<?= $permission['permission']?>">fonction : <?= $permission['permission']?></option>
