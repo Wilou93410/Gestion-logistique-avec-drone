@@ -1,5 +1,11 @@
 <?php
-$dbh = new PDO('mysql:host=localhost;dbname=userscan', 'admin', 'admin');
+session_start(); 
+echo "Bonjour " . $_SESSION['pseudo'] . "!";
+if ($_SESSION['permission'] !== "admin") {
+    header("Location: ../../index.php"); 
+}
+
+require "../../../config/configadmin.php";
 
 // Récupération des données de la table "users"
 $sql = "SELECT * FROM users";
@@ -29,26 +35,32 @@ if (isset($_POST['user'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <LINK href="../../../style/style.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
     <title>Suppression d'utilisateur</title>
 </head>
 
 <body>
-<h1>Suppression d'utilisateurs
-  <span
-     class="txt-rotate"
-     data-period="2000"
-     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
-</h1>
-    <form method="post">
-        <select class="form-select" aria-label="Default select example" name="user" required>
+<h1>Suppression d'utilisateurs</h1>
+
+    <form method="post" class="form">
+
+    <div class ="box">
+        <select aria-label="Default select example" name="user" required>
             <?php foreach ($users as $user): ?>
                 <option value="<?= $user['pseudo']?>"><?= $user['name']?>  <?= $user['firstname']?></option>
             <?php endforeach; ?>
+            
         </select>
-        <input type="submit" value="supprimer">
+        </div>
+        <button type="submit" value="supprimer">supprimer</button>       
+         
+            </Div>    
     </form>
+
     <footer>
+        <div class ="deco">
+        <button onclick="window.location.href = '../admin.php';">retour</button>
+
     </footer>
-    <button onclick="window.location.href = '../admin.php';">Retour</button>
+
+</div>
 </html>
