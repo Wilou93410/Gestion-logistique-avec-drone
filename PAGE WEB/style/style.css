@@ -255,8 +255,6 @@ td {
   border: none;
   height: 45px;
   border-radius: 5px;
-  margin-left : 850px;
-  margin-right : 850px;
   background: rgb(131, 0, 207);
   align-self: flex-end;
 }
