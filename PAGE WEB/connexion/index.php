@@ -1,5 +1,7 @@
 <?php
-$dbh = new PDO('mysql:host=localhost;dbname=userscan', 'admin', 'admin');
+
+require "../config/configadmin.php";
+
 if(isset($_POST['submit'])) {
     // récupération des informations d'identification
     $pseudo = $_POST['pseudo'];
@@ -18,11 +20,14 @@ if(isset($_POST['submit'])) {
         session_start();
         $_SESSION['pseudo'] = $pseudo;
         $_SESSION['permission'] = $user_role;
+        $_SESSION['name'] = $name;
+        $_SESSION['firstname'] = $firstname;
 
         if ($user_role == "admin") {
             header("Location: admin/admin.php");
             exit;
         } 
+        
         else if ($user_role == "user"){
             header("Location: user/user.php");
             exit;
@@ -38,31 +43,28 @@ if(isset($_POST['submit'])) {
 ?>
 
 <html>
-<link rel="stylesheet" href="CSS/index.scss">
-<form method="post">
 <LINK href="../style/style.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
-<h1>Page de connexion
-  <span
-     class="txt-rotate"
-     data-period="2000"
-     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
-</h1>
 
+<body>
 
+<form class = "form" method="post">
 
-    <div class="textInputWrapper">
-    <input type="text" name="pseudo" placeholder="Nom d'utilisateur" class="TextInput" required>
-    </div>
+Connexion
+    
+    <input type="text" name="pseudo" placeholder="Nom d'utilisateur" required>
+    
+    <br><br>
 
-    <div class="textInputWrapper">
-    <input type="password" name="password" placeholder="Mot de passe" class="TextInput" required>
-    </div>
-    <br>
+    <input type="password" name="password" placeholder="Mot de passe" required>
 
-    <button type="submit" name="submit" class="btn">se connecter</button>
+    <br><br>
+
+    <button type="submit" name="submit">se connecter</button>
+
+</div>
 
 </form>
- 
+
+</body>
+
 </html>
-<!--cette page permet d'effectuer la connexion des utilisateurs et de vérifié leurs identifiants, en fonctions de leurs rôles ca les renvoies sur une page soit admin soit employés. -->
