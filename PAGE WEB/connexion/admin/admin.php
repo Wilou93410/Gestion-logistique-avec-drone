@@ -1,46 +1,62 @@
+<?php
+session_start(); 
+if ($_SESSION['permission'] !== "admin") {
+    header("Location: ../index.php"); 
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <LINK href="../../style/style.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+
     <head>
         <title>admin</title>
     </head>
-    <body>
-    <h1>Admin
-  <span
-     class="txt-rotate"
-     data-period="2000"
-     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
-</h1>
 
-        <p>faite attention, sur cette page vous avez tout les droits, ne supprimez pas ou ne modifiez pas quelque choses sans savoir ce que vous faite au préalable,vous serez tenus pour responsable en cas de fausse manipulation, merci de votre compréhension</p>
-      
+    <body>
+
         <br>
 
-        <div class ="btnn">  
-        <button type="button" onclick="window.location.href='cruduser/createuser.php';">
-        <span class="transition"></span>
-        <span class="gradient"></span>
-        <span class="label">crée un utilisateur</span>
-        </button>
+        <div class = button>
 
-        <button type="button" onclick="window.location.href='cruduser/readuser.php';">
-        <span class="transition"></span>
-  <span class="gradient"></span>
-  <span class="label">afficher un utilisateur</span>
-    </button>
+            utilisateur
 
-        <button type="button" onclick="window.location.href='cruduser/updateuser.php';">
-        <span class="transition"></span>
-  <span class="gradient"></span>
-  <span class="label">modifier un utilisateur</span>
+                <button type="button" onclick="window.location.href='cruduser/createuser.php';">créer un utilisateur</button>
 
-  <button type="button" onclick="window.location.href='cruduser/deleteuser.php';">
-        <span class="transition"></span>
-  <span class="gradient"></span>
-  <span class="label">supprimer un utilisateur</span>
-    </button>
-    </button>
-    </div> 
+                <button type="button" onclick="window.location.href='cruduser/readuser.php';">afficher un utilisateur</button>
+
+                <button type="button" onclick="window.location.href='cruduser/updateuser.php';">modifier un utilisateur</button>
+                    
+                <button type="button" onclick="window.location.href='cruduser/deleteuser.php';">supprimer un utilisateur</button>
+    
+        </div>
+
+        <br><br>
+
+        <div class = button> 
+
+                scan
+
+                <button type="button" onclick="window.location.href='scan/deletescan.php';">supprimer un scan </button>
+
+                <button type="button" onclick="window.location.href='scan/readscan.php';">afficher les scan </button>
+
+                <button type="button" onclick="window.location.href='scan/updatescan.php';">modifier un scan</button>
+
+        </div>
+
+    <script>
+        function logout() {
+        window.location.href = '/pageweb/config/logout.php';
+        }
+    </script>
+
     </body>
+        
+    <div class = deco> 
+
+        <button type="button" onclick="logout()">déconnexion</button>
+
+    </div>
+
 </html>
