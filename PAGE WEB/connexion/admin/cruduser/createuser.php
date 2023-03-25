@@ -1,8 +1,11 @@
 <?php 
-session_start();
+session_start(); 
+if ($_SESSION['permission'] !== "admin") {
+    header("Location: ../../index.php"); 
+}
 
 // Connexion à la base de données
-$dbh = new PDO('mysql:host=localhost;dbname=userscan', 'admin', 'admin');
+require "../../../config/configadmin.php";
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Récupération des permissions
@@ -37,56 +40,59 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!doctype html>
 <html lang="en">
-<link rel="stylesheet" href="style.css">
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <LINK href="../../../style/style.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
     <title>création d'utilisateur</title>
   </head>
-  <body>
-  <h1>Création d'utilisateurs
-  <span
-     class="txt-rotate"
-     data-period="2000"
-     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
-</h1>
-    
-    <?php if(isset($_SESSION['error'])): ?>
-        <div class="error"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
-    <?php endif; ?>
-   <div class='label'> 
-    <form method="post">
-    <div class="textInputWrapper">
-        <input type="text" id="name" name="name" required placeholder='Nom' class="TextInput">
-        <br><br>
-    </div>  
-    <div class="textInputWrapper">
-        <input type="text" id="firstname" name="firstname" required placeholder="Prénom" class="TextInput">
-        <br><br>
-    </div>     
-    <div class="textInputWrapper">
-        <input type="text" id="pseudo" name="pseudo" required placeholder="Pseudo" class="TextInput">
-        <br><br>
-    </div> 
-    <div class="textInputWrapper">  
-        <input type="password" id="password" name="password" required placeholder="Mot de passe"  minlength="8" maxlength="16" class="TextInput">
-        <br><br>
-    </div>
-<select class="form-select" aria-label="Default select example" name="permission" required>
-<?php foreach ($permissions as $permission): ?>
-    <option value="<?= $permission['permission']?>">fonction : <?= $permission['permission']?></option>
-    <?php endforeach; ?>  
-</select>
-<br><br>
-<input type="submit" value="Envoyer">
-</form>
-</div>
-  <footer>
+
+     <body>
+
+        <h1>Création d'utilisateurs</h1>
+        
+        <?php if(isset($_SESSION['error'])): ?>
+            <div class="error"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
+        <?php endif; ?>
 
     
-</footer>
-<br><br>
-<button onclick="window.location.href = '../admin.php';">Retour</button>
+        <form method="post" class="button">
+    
+            <input type="text" id="name" name="name" required placeholder='Nom'>
+            <br><br>
+    
+            <input type="text" id="firstname" name="firstname" required placeholder="Prénom" >
+            <br><br>
+        
+            <input type="text" id="pseudo" name="pseudo" required placeholder="Pseudo" >
+            <br><br>
+        
+            <input type="password" id="password" name="password" required placeholder="Mot de passe"  minlength="8" maxlength="16" >
+            <br><br>
+        
+        <div class ="box">
+
+            <select aria-label="Default select example" name="permission" required>
+                <?php foreach ($permissions as $permission): ?>
+                    <option value="<?= $permission['permission']?>">fonction : <?= $permission['permission']?></option>
+                <?php endforeach; ?>  
+            </select>
+
+        </div>
+
+            <br><br>
+            
+            <button value="envoyer">envoyer</button>
+
+        </form>
+
+    </body>
+
+    <div class = deco>
+
+    <button onclick="window.location.href = '../admin.php';">retour</button>
+
+    </div>
+
 </html>
