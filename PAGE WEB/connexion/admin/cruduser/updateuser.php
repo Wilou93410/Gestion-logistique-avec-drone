@@ -1,9 +1,12 @@
 <?php
 
-session_start();
+session_start(); 
+if ($_SESSION['permission'] !== "admin") {
+    header("Location: ../../index.php"); 
+}
 
 // Connexion à la base de données
-$dbh = new PDO('mysql:host=localhost;dbname=userscan', 'admin', 'admin');
+require "../../../config/configadmin.php";
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Récupération des permissions
@@ -43,22 +46,22 @@ if (isset($_POST['update_user'])) {
 <!DOCTYPE html>
 <html>
 <LINK href="../../../style/style.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
 <head>
+
     <title>Modifier un utilisateur</title>
+
 </head>
 <body>
-<h1>Modifier un utilisateurs
-  <span
-     class="txt-rotate"
-     data-period="2000"
-     data-rotate='[ "nerdy.", "simple.", "pure JS.", "pretty.", "fun!" ]'></span>
-</h1>
+
+<h1>Modifier un utilisateurs</h1>
 
     <!-- Formulaire de sélection de l'utilisateur à modifier -->
-    <h2>Sélectionner un utilisateur à modifier</h2>
-    <form method="post">
-       
+    
+
+    <form method="post" class=button>
+
+    <div class ="box">
+
         <select name="user_id" id="user_id">
             <?php
             $users = $dbh->query('SELECT * FROM users');
@@ -67,41 +70,53 @@ if (isset($_POST['update_user'])) {
             }
             ?>
         </select>
+
+    </div>       
+
         <button type="submit" name="select_user">Sélectionner</button>
+
     </form>
 
     <?php if ($selected_user): ?>
 
     <!-- Formulaire de modification de l'utilisateur sélectionné -->
-    <h2>Modifier l'utilisateur sélectionné</h2>
-<form method="post">
-    <input type="hidden" name="id_user" value="<?php echo $selected_user['id_user']; ?>" >
 
-    <input type="text" name="name" id="name" value="<?php echo $selected_user['name']; ?>" placeholder="nom"><br>
+    <form method="post" class="button">
+
+        <input type="hidden" name="id_user" value="<?php echo $selected_user['id_user']; ?>" >
+
+        <input type="text" name="name" id="name" value="<?php echo $selected_user['name']; ?>" placeholder="nom"><br>
+        
+        <input type="text" name="firstname" id="firstname" value="<?php echo $selected_user['firstname']; ?>" placeholder="prénom"><br>
     
-    <input type="text" name="firstname" id="firstname" value="<?php echo $selected_user['firstname']; ?>" placeholder="prénom"><br>
-   
-    <input type="text" name="pseudo" id="pseudo" value="<?php echo $selected_user['pseudo']; ?>" placeholder="pseudo"><br>
-    
-    <input type="password" name="password" id="password" placeholder="mot de passe" minlength=8 maxlength=16><br>
-    
-    <select name="permission" id="permission">
-        <?php foreach ($permissions as $permission) {
-            echo '<option value="' . $permission['permission'] . '"';
-            if ($permission['permission'] == $selected_user['permission']) {
-                echo ' selected';
-            }
-            echo '>' . $permission['permission'] . '</option>';
-        } ?>
-    </select><br>
-    <button type="submit" name="update_user">Enregistrer les modifications</button>
-</form>
-</form>
+        <input type="text" name="pseudo" id="pseudo" value="<?php echo $selected_user['pseudo']; ?>" placeholder="pseudo"><br>
+        
+        <input type="password" name="password" id="password" placeholder="mot de passe" minlength=8 maxlength=16><br>
+        
+        <div class ="box">
+
+        <select name="permission" id="permission">
+            <?php foreach ($permissions as $permission) {
+                echo '<option value="' . $permission['permission'] . '"';
+                if ($permission['permission'] == $selected_user['permission']) {
+                    echo ' selected';
+                }
+                echo '>' . $permission['permission'] . '</option>';
+            } ?>
+        </select>
+
+        </div>
+
+        <br>
+
+        <button type="submit" name="update_user">Enregistrer les modifications</button>
+
+    </form>
+
 <?php endif; ?>
-<button onclick="window.location.href = '../admin.php';">Retour</button>
-</body>
-</html>
-<?php
 
-$dbh = null;
-?>
+<div class = deco>          
+
+    <button onclick="window.location.href = '../admin.php';">retour</button>
+
+</html>
