@@ -4,14 +4,11 @@ if ($_SESSION['permission'] !== "admin") {
     header("Location: ../../index.php"); 
 }
 
-// Connexion à la base de données
 require "../../../config/configadmin.php";
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Récupération des permissions
 $permissions = $dbh->query('SELECT * FROM permission');
 
-// Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $surname = $_POST['firstname'];
@@ -19,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     $permission = $_POST['permission'];
     
-    // Insertion de l'utilisateur dans la base de données
     $stmt = $dbh->prepare("INSERT INTO users (name, firstname, pseudo, password, permission) VALUES (:name, :firstname, :pseudo, :password, :permission)");
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':firstname', $surname);
@@ -60,16 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form method="post" class="button">
     
             <input type="text" id="name" name="name" required placeholder='Nom'>
-            <br><br>
-    
+            
             <input type="text" id="firstname" name="firstname" required placeholder="Prénom" >
-            <br><br>
         
             <input type="text" id="pseudo" name="pseudo" required placeholder="Pseudo" >
-            <br><br>
-        
+            
             <input type="password" id="password" name="password" required placeholder="Mot de passe"  minlength="8" maxlength="16" >
-            <br><br>
         
         <div class ="box">
 
@@ -81,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         </div>
 
-            <br><br>
+            <br>
             
             <button value="envoyer">envoyer</button>
 
@@ -91,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class = deco>
 
-    <button onclick="window.location.href = '../admin.php';">retour</button>
+        <button onclick="window.location.href = '../admin.php';">retour</button>
 
     </div>
 
