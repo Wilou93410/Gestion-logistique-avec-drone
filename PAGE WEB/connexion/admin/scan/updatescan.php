@@ -6,7 +6,6 @@ if ($_SESSION['permission'] !== "admin") {
     header("Location: ../../index.php"); 
     exit;
 }
-echo "Bonjour " . $_SESSION['pseudo'] . "!";
 
 try {
     $users_stmt = $dbh->query('SELECT * FROM users');
@@ -30,7 +29,6 @@ if (isset($_POST['select_scan'])) {
  else {
     $selected_scan = null;
 }
-
 
 if (isset($_POST['update_scan'])) {
     $id_scan = $_POST['id_scan'];
