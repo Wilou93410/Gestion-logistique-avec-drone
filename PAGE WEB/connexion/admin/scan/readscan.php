@@ -1,13 +1,11 @@
 <?php
 session_start(); 
-echo "Bonjour " . $_SESSION['pseudo'] . "!";
 if ($_SESSION['permission'] !== "admin") {
     header("Location: ../../index.php"); 
 }
-// Connexion à la base de données
+
 require "../../../config/configadmin.php";
 
-// Récupération des données de la table "scan"
 $sql = "SELECT * FROM scan INNER JOIN users on scan.id_user = users.id_user";
 $search = '';
 if(isset($_POST['search'])) {
