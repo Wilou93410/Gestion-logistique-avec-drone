@@ -1,19 +1,16 @@
 <?php
 session_start(); 
-echo "Bonjour " . $_SESSION['pseudo'] . "!";
 if ($_SESSION['permission'] !== "admin") {
     header("Location: ../../index.php"); 
 }
 
-// Connexion à la base de données
 require "../../../config/configadmin.php";
 
-// Recherche d'utilisateur si une recherche a été soumise
 if (isset($_GET['search'])) {
   $search = $_GET['search'];
   $sql = "SELECT * FROM users WHERE pseudo LIKE '%$search%' OR name LIKE '%$search%' OR firstname LIKE '%$search%' OR permission LIKE '%$search%'";
 } else {
-  // Récupération de tous les utilisateurs
+
   $sql = "SELECT * FROM users";
 }
 
