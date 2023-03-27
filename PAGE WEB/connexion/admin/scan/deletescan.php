@@ -1,7 +1,6 @@
 <?php
 
 session_start(); 
-echo "Bonjour " . $_SESSION['pseudo'] . "!";
 if ($_SESSION['permission'] !== "admin") {
     header("Location: ../../index.php"); 
 }
