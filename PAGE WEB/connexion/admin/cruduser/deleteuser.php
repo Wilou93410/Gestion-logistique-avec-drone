@@ -1,13 +1,11 @@
 <?php
 session_start(); 
-echo "Bonjour " . $_SESSION['pseudo'] . "!";
 if ($_SESSION['permission'] !== "admin") {
     header("Location: ../../index.php"); 
 }
 
 require "../../../config/configadmin.php";
 
-// Récupération des données de la table "users"
 $sql = "SELECT * FROM users";
 $result = $dbh->query($sql);
 $users = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -44,23 +42,23 @@ if (isset($_POST['user'])) {
     <form method="post" class="form">
 
     <div class ="box">
+
         <select aria-label="Default select example" name="user" required>
             <?php foreach ($users as $user): ?>
                 <option value="<?= $user['pseudo']?>"><?= $user['name']?>  <?= $user['firstname']?></option>
             <?php endforeach; ?>
-            
         </select>
+
         </div>
+        
         <button type="submit" value="supprimer">supprimer</button>       
          
             </Div>    
     </form>
 
-    <footer>
-        <div class ="deco">
+  
+    <div class ="deco">
         <button onclick="window.location.href = '../admin.php';">retour</button>
+    </div>
 
-    </footer>
-
-</div>
 </html>
