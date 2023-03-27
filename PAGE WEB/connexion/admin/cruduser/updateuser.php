@@ -5,14 +5,11 @@ if ($_SESSION['permission'] !== "admin") {
     header("Location: ../../index.php"); 
 }
 
-// Connexion à la base de données
 require "../../../config/configadmin.php";
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Récupération des permissions
 $permissions = $dbh->query('SELECT * FROM permission');
 
-// Traitement du formulaire de sélection de l'utilisateur à modifier
 if (isset($_POST['select_user'])) {
     $selected_user_id = $_POST['user_id'];
     $selected_user_stmt = $dbh->prepare("SELECT * FROM users WHERE id_user = :id_user");
@@ -23,7 +20,6 @@ if (isset($_POST['select_user'])) {
     $selected_user = null;
 }
 
-// Traitement du formulaire de modification de l'utilisateur
 if (isset($_POST['update_user'])) {
     $id_user = $_POST['id_user'];
     $name = $_POST['name'];
@@ -55,9 +51,6 @@ if (isset($_POST['update_user'])) {
 
 <h1>Modifier un utilisateurs</h1>
 
-    <!-- Formulaire de sélection de l'utilisateur à modifier -->
-    
-
     <form method="post" class=button>
 
     <div class ="box">
@@ -67,7 +60,7 @@ if (isset($_POST['update_user'])) {
             $users = $dbh->query('SELECT * FROM users');
             foreach ($users as $user) {
                 echo '<option value="' . $user['id_user'] . '">' . $user['name'] . ' ' . $user['firstname'] . '</option>';
-            }
+            } 
             ?>
         </select>
 
@@ -79,19 +72,17 @@ if (isset($_POST['update_user'])) {
 
     <?php if ($selected_user): ?>
 
-    <!-- Formulaire de modification de l'utilisateur sélectionné -->
-
     <form method="post" class="button">
 
         <input type="hidden" name="id_user" value="<?php echo $selected_user['id_user']; ?>" >
 
-        <input type="text" name="name" id="name" value="<?php echo $selected_user['name']; ?>" placeholder="nom"><br>
+        <input type="text" name="name" id="name" value="<?php echo $selected_user['name']; ?>" placeholder="nom">
         
-        <input type="text" name="firstname" id="firstname" value="<?php echo $selected_user['firstname']; ?>" placeholder="prénom"><br>
+        <input type="text" name="firstname" id="firstname" value="<?php echo $selected_user['firstname']; ?>" placeholder="prénom">
     
-        <input type="text" name="pseudo" id="pseudo" value="<?php echo $selected_user['pseudo']; ?>" placeholder="pseudo"><br>
+        <input type="text" name="pseudo" id="pseudo" value="<?php echo $selected_user['pseudo']; ?>" placeholder="pseudo">
         
-        <input type="password" name="password" id="password" placeholder="mot de passe" minlength=8 maxlength=16><br>
+        <input type="password" name="password" id="password" placeholder="mot de passe" minlength=8 maxlength=16>
         
         <div class ="box">
 
@@ -115,8 +106,10 @@ if (isset($_POST['update_user'])) {
 
 <?php endif; ?>
 
-<div class = deco>          
+    <div class = deco>          
 
-    <button onclick="window.location.href = '../admin.php';">retour</button>
+        <button onclick="window.location.href = '../admin.php';">retour</button>
+
+    </div>
 
 </html>
