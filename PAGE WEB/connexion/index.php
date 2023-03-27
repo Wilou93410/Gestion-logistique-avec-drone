@@ -23,6 +23,7 @@ if(isset($_POST['submit'])) {
         $_SESSION['name'] = $name;
         $_SESSION['firstname'] = $firstname;
 
+        // redirection sur la page en fonction de leurs rôles
         if ($user_role == "admin") {
             header("Location: admin/admin.php");
             exit;
@@ -50,14 +51,12 @@ if(isset($_POST['submit'])) {
 <form class = "form" method="post">
 
 Connexion
-    
+
     <input type="text" name="pseudo" placeholder="Nom d'utilisateur" required>
-    
-    <br><br>
 
     <input type="password" name="password" placeholder="Mot de passe" required>
 
-    <br><br>
+        <br>
 
     <button type="submit" name="submit">se connecter</button>
 
