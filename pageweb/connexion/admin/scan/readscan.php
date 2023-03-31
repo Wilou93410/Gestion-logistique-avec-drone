@@ -31,7 +31,7 @@ $scans = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Affichage scans</title>
 </head>
 <body>
-    <h1>Utilisateurs</h1>
+    <h1>Scan</h1>
 
     <form method="post" class="recherche">
         <label for="search">Rechercher :</label>
