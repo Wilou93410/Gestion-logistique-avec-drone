@@ -275,3 +275,21 @@ td {
 .boxscan select option {
   padding: 30px;
 }
+
+
+
+a:link {
+  color: #ffffff;
+}
+
+a:visited {
+  color: #ffffff;
+}
+
+a:hover {
+  color :rgb(0, 0, 0)
+}
+
+a:active {
+  color:red
+}
