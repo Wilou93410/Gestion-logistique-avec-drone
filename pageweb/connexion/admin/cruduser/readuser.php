@@ -8,14 +8,15 @@ require "../../../config/configadmin.php";
 
 if (isset($_GET['search'])) {
   $search = $_GET['search'];
-  $sql = "SELECT * FROM users WHERE pseudo LIKE '%$search%' OR name LIKE '%$search%' OR firstname LIKE '%$search%' OR permission LIKE '%$search%'";
+  $sql = "SELECT * FROM users WHERE pseudo LIKE :search OR name LIKE :search OR firstname LIKE :search OR permission LIKE :search";
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute(['search' => "%$search%"]);
 } else {
-
   $sql = "SELECT * FROM users";
+  $stmt = $dbh->query($sql);
 }
 
-$result = $dbh->query($sql);
-$users = $result->fetchAll(PDO::FETCH_ASSOC);
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!doctype html>
