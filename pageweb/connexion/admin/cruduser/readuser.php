@@ -7,43 +7,47 @@ if ($_SESSION['permission'] !== "admin") {
 require "../../../config/configadmin.php";
 
 $search = "";
-$order_by = "";
+$sort_by = "";
+$params = array();
 
-if (isset($_GET['search'])) {
-  $search = $_GET['search'];
+// Requête de base sans recherche ni tri
+$query = "SELECT * FROM users";
+
+// Si une recherche est effectuée
+if(isset($_POST['search'])) {
+    $search = $_POST['search'];
+    $query = "SELECT * FROM users WHERE pseudo LIKE :search OR name LIKE :search OR firstname LIKE :search OR permission LIKE :search";
+    $params['search'] = '%' . $search . '%';
 }
 
-if (isset($_GET['order_by'])) {
-  $order_by = $_GET['order_by'];
+// Si un tri est demandé
+if(isset($_GET['sort'])) {
+    switch($_GET['sort']) {
+        case 'pseudo':
+            $sort_by = 'pseudo ASC';
+            break;
+        case 'name':
+            $sort_by = 'name ASC';
+            break;
+        case 'firstname':
+            $sort_by = 'firstname ASC';
+            break;
+        case 'permission':
+            $sort_by = 'permission ASC';
+            break;
+        default:
+            $sort_by = '';
+    }
 }
 
-$order_by_options = array(
-  "pseudo" => "Pseudo",
-  "name" => "Nom",
-  "firstname" => "Prénom",
-  "permission" => "Rôle"
-);
-
-if ($order_by && !array_key_exists($order_by, $order_by_options)) {
-  $order_by = "";
+// Si un tri est défini, on l'ajoute à la requête
+if(!empty($sort_by)) {
+    $query .= " ORDER BY $sort_by";
 }
 
-if ($search && $order_by) {
-  $sql = "SELECT * FROM users WHERE pseudo LIKE :search OR name LIKE :search OR firstname LIKE :search OR permission LIKE :search ORDER BY $order_by";
-  $stmt = $dbh->prepare($sql);
-  $stmt->execute(['search' => "%$search%"]);
-} elseif ($search) {
-  $sql = "SELECT * FROM users WHERE pseudo LIKE :search OR name LIKE :search OR firstname LIKE :search OR permission LIKE :search";
-  $stmt = $dbh->prepare($sql);
-  $stmt->execute(['search' => "%$search%"]);
-} elseif ($order_by) {
-  $sql = "SELECT * FROM users ORDER BY $order_by";
-  $stmt = $dbh->query($sql);
-} else {
-  $sql = "SELECT * FROM users";
-  $stmt = $dbh->query($sql);
-}
-
+// Exécution de la requête
+$stmt = $dbh->prepare($query);
+$stmt->execute($params);
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -60,35 +64,18 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <h1>Utilisateurs</h1>
 
-    <form method="get" class=recherche>
-
- 
+    <form method="post" class=recherche>
       <input type="text" id="search" name="search" placeholder="rechercher un utilisateur" value="<?= $search ?>">
       <button type="submit">Rechercher</button>
-
-      </br>
-      <div class ="box">
-
-      <select id="order_by" name="order_by">
-        <option value=""></option>
-        <?php foreach ($order_by_options as $option_key => $option_label): ?>
-          <option value="<?= $option_key ?>" <?= $option_key == $order_by ? "selected" : "" ?>><?= $option_label ?></option>
-        <?php endforeach; ?>
-      </select>
-
-        </div>
-
-      <button type="submit">Trier</button>
-
     </form>
     <br>
     <table>
       <tr>
-        <th>Pseudo</th>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>mot de passe</th>
-        <th>droit</th>
+        <th><a href="?sort=pseudo">Pseudo</a></th>
+        <th><a href="?sort=name">Nom</a></th>
+        <th><a href="?sort=firstname">Prénom</a></th>
+        <th>Mot de passe</th>
+        <th><a href="?sort=permission">Droit</a></th>
       </tr>
 
       <?php foreach ($users as $user): ?>
@@ -106,4 +93,5 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <button onclick="window.location.href = '../admin.php';">retour</button>
     </div>
 
-  </body
+  </body>
+</html>
