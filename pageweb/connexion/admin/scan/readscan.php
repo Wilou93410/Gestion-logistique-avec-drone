@@ -8,6 +8,7 @@ if ($_SESSION['permission'] !== "admin") {
 require_once "../../../config/configadmin.php";
 
 $search = '';
+$sort_by = '';
 $query = "SELECT * FROM scan INNER JOIN users ON scan.id_user = users.id_user";
 $params = array();
 
@@ -15,6 +16,29 @@ if(isset($_POST['search'])) {
     $search = $_POST['search'];
     $query .= " WHERE name LIKE :search OR firstname LIKE :search OR pseudo LIKE :search OR dates LIKE :search OR id_carton LIKE :search";
     $params['search'] = '%' . $search . '%';
+}
+
+if(isset($_GET['sort'])) {
+    switch($_GET['sort']) {
+        case 'name':
+            $sort_by = 'name ASC';
+            break;
+        case 'firstname':
+            $sort_by = 'firstname ASC';
+            break;
+        case 'date':
+            $sort_by = 'dates ASC';
+            break;
+        case 'carton':
+            $sort_by = 'id_carton ASC';
+            break;
+        default:
+            $sort_by = '';
+    }
+}
+
+if(!empty($sort_by)) {
+    $query .= " ORDER BY $sort_by";
 }
 
 $stmt = $dbh->prepare($query);
@@ -41,12 +65,12 @@ $scans = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <br>
     <table>
         <tr>
-            <th>id_scan</th>
-            <th>carton</th>
-            <th>date</th>
-            <th>pseudo</th>
-            <th>nom</th>
-            <th>prénom</th>
+            <th><a href="?sort=id_scan">id_scan</a></th>
+            <th><a href="?sort=carton">carton</a></th>
+            <th><a href="?sort=date">date</a></th>
+            <th><a href="?sort=pseudo">pseudo</a></th>
+            <th><a href="?sort=name">nom</a></th>
+            <th><a href="?sort=firstname">prénom</a></th>
         </tr>
 
         <?php foreach ($scans as $scan): ?>
