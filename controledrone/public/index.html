@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Script Launcher</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  </head>
+  <body>
+    <h1>Script Launcher</h1>
+    <form action="/runscript" method="post">
+      <label for="zone1">Zone 1 Script</label>
+      <input type="radio" id="zone1" name="script" value="zone1"><br>
+      <label for="zone2">Zone 2 Script</label>
+      <input type="radio" id="zone2" name="script" value="zone2"><br>
+      <label for="zone3">Zone 3 Script</label>
+      <input type="radio" id="zone3" name="script" value="zone3"><br><br>
+      <input type="submit" value="Run Script">
+    </form>
+  </body>
+</html>
