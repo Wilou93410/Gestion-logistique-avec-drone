@@ -293,3 +293,10 @@ a:hover {
 a:active {
   color:red
 }
+
+
+p {
+    color: white;
+    font-size: 17px; 
+    font-family: system-ui;
+}
