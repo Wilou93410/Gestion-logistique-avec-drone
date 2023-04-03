@@ -43,8 +43,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <h1>drone</h1>
 
-    <p>Bonjour</p>
-
     <br>
 
     <form method="get" class=recherche>
@@ -64,7 +62,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <th>Contenu</th>
                         <th>Date de livraison</th>
                         <th>Poids</th>
-                        <th>ID Fournisseur</th>
                         <th>Adresse</th>
                         <th>Code Postal</th>
                         <th>Pays</th>
@@ -79,7 +76,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?php echo $row['content']; ?></td>
                             <td><?php echo $row['delivery_date']; ?></td>
                             <td><?php echo $row['weight']; ?></td>
-                            <td><?php echo $row['id_supplier']; ?></td>
                             <td><?php echo $row['address']; ?></td>
                             <td><?php echo $row['postal_code']; ?></td>
                             <td><?php echo $row['country']; ?></td>
