@@ -1,31 +1,43 @@
 #include <iostream>
+#include <fstream>
 #include <string>
-#include <qrencode.h>
+#include <cstdlib>
+#include <sstream>
+#include <zxing/qrcode/QRCodeWriter.h>
+#include <zxing/BarcodeFormat.h>
+#include <zxing/EncodeHints.h>
+#include <zxing/Exception.h>
+#include <zxing/common/BitMatrix.h>
 
 using namespace std;
+using namespace zxing;
+using namespace zxing::qrcode;
 
-int main(int argc, char argv[]) {
-    if (argc < 2) {
-        cerr << "Usage: " << argv[0] << " <code-barre>" << endl;
-        return 1;
+int main(int argc, char** argv) {
+    // Connexion à la base de données pour récupérer l'ID
+    // ...
+
+    string id = "1234567890"; // ID récupéré depuis la base de données
+    stringstream data;
+    data << "ID: " << id << "\n"
+         << "Informations supplémentaires: ...";
+
+    // Génération du QR code à partir de l'ID et des informations supplémentaires
+    QRCodeWriter writer;
+    EncodeHints hints;
+    hints.setBarcodeFormat(BarcodeFormat::QR_CODE);
+    BitMatrix matrix = writer.encode(data.str(), BarcodeFormat::QR_CODE, 200, 200, hints);
+
+    // Écriture du QR code dans un fichier PNG
+    ofstream file("qr_code.png", ios::binary);
+    if (file.is_open()) {
+        matrix.writeToPNG(file);
+        file.close();
+        cout << "QR code généré avec succès." << endl;
+    } else {
+        cerr << "Impossible d'écrire dans le fichier." << endl;
+        return EXIT_FAILURE;
     }
 
-    // Récupération du code-barre
-    string codeBarre(argv[1]);
-
-    // Création du QR code
-    QRcodeqrcode = QRcode_encodeString(codeBarre.c_str(), 0, QR_ECLEVEL_L, QR_MODE_8, 1);
-
-    // Affichage du QR code en ASCII art
-    for (int y = 0; y < qrcode->height; y++) {
-        for (int x = 0; x < qrcode->width; x++) {
-            cout << (qrcode->data[y*qrcode->width+x] ? "  " : "██");
-        }
-        cout << endl;
-    }
-
-    // Libération de la mémoire allouée pour le QR code
-    QRcode_free(qrcode);
-
-    return 0;
+    return EXIT_SUCCESS;
 }
