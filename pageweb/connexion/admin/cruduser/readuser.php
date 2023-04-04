@@ -79,19 +79,22 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </tr>
 
       <?php foreach ($users as $user): ?>
-        <tr>
-          <td><?= $user['pseudo'] ?></td>
-          <td><?= $user['name'] ?></td>
-          <td><?= $user['firstname'] ?></td>
-          <td><?= $user['password'] ?></td>
-          <td><?= $user['permission'] ?></td>
-        </tr>
-      <?php endforeach; ?>
+  <tr>
+    <td><?= $user['pseudo'] ?></td>
+    <td><?= $user['name'] ?></td>
+    <td><?= $user['firstname'] ?></td>
+    <td class="password"><?= $user['password'] ?></td>
+    <td><?= $user['permission'] ?></td>
+  </tr>
+<?php endforeach; ?>
     </table>
 
     <div class="deco">
       <button onclick="window.location.href = '../admin.php';">retour</button>
     </div>
 
+    
+
   </body>
 </html>
+

@@ -257,6 +257,7 @@ td {
   border-radius: 5px;
   background: rgb(131, 0, 207);
   align-self: flex-end;
+  
 }
 
 
@@ -298,5 +299,5 @@ a:active {
 p {
     color: white;
     font-size: 17px; 
-    font-family: system-ui;
+    font-family: system-ui;  
 }
