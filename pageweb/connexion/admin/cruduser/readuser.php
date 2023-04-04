@@ -83,7 +83,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <td><?= $user['pseudo'] ?></td>
     <td><?= $user['name'] ?></td>
     <td><?= $user['firstname'] ?></td>
-    <td class="password"><?= $user['password'] ?></td>
+    <td class="password copyable"><?= $user['password'] ?></td>
     <td><?= $user['permission'] ?></td>
   </tr>
 <?php endforeach; ?>
@@ -94,6 +94,33 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     
+    <script>
+  // Sélectionner tous les éléments avec la classe "copyable"
+  const copyableEls = document.querySelectorAll('.copyable');
+
+  // Ajouter un écouteur d'événements "click" à chaque élément
+  copyableEls.forEach((el) => {
+    el.addEventListener('click', () => {
+      // Sélectionner le contenu de l'élément
+      const range = document.createRange();
+      range.selectNodeContents(el);
+
+      // Sélectionner le texte dans le presse-papiers
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      // Copier le texte dans le presse-papiers
+      document.execCommand('copy');
+
+      // Désélectionner le contenu
+      selection.removeAllRanges();
+
+      // Afficher un message de confirmation
+      alert('Mot de passe copié dans le presse-papiers');
+    });
+  });
+</script>
 
   </body>
 </html>
