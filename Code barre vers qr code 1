@@ -1,0 +1,31 @@
+#include <iostream>
+#include <string>
+#include <qrencode.h>
+
+using namespace std;
+
+int main(int argc, char argv[]) {
+    if (argc < 2) {
+        cerr << "Usage: " << argv[0] << " <code-barre>" << endl;
+        return 1;
+    }
+
+    // Récupération du code-barre
+    string codeBarre(argv[1]);
+
+    // Création du QR code
+    QRcodeqrcode = QRcode_encodeString(codeBarre.c_str(), 0, QR_ECLEVEL_L, QR_MODE_8, 1);
+
+    // Affichage du QR code en ASCII art
+    for (int y = 0; y < qrcode->height; y++) {
+        for (int x = 0; x < qrcode->width; x++) {
+            cout << (qrcode->data[y*qrcode->width+x] ? "  " : "██");
+        }
+        cout << endl;
+    }
+
+    // Libération de la mémoire allouée pour le QR code
+    QRcode_free(qrcode);
+
+    return 0;
+}
