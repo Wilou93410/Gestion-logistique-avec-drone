@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
-
 router.use('/zone1', zone1);
 router.use('/zone2', zone2);
 router.use('/zone3', zone3);
@@ -19,5 +18,6 @@ router.post('/runscript', (req, res) => {
     runScript(scriptName);
     res.send(`Script "${scriptName}" lancé.`);
   });
+
 
 module.exports = router;

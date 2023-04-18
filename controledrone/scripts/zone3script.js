@@ -1,8 +1,8 @@
-const Tello = require('../../src/tello');
+const Tello = require('../../node_modules/@harleylara/tello-js/src/tello');
 
 
 module.exports = {
-  run: function() {
+  run: async function() {
     
     async function sendCmdWithDelay(cmd, delaySeconds) {
       await drone.sendCmd(cmd);
@@ -13,10 +13,13 @@ module.exports = {
     drone.connect();
     drone.sendCmd('streamon');
     drone.initFfmpeg();
-    sendCmdWithDelay('takeoff', 2);
+    drone.sendCmd('takePicture');
+    await new Promise(resolve => setTimeout(resolve, 5000)); // Attendre 5 secondes pour que la photo soit prise et envoyée en streaming
+    const photo = drone.getFrame(); // Récupérer la dernière frame de la vidéo en cours
+    /*sendCmdWithDelay('takeoff', 2);
     sendCmdWithDelay('forward 50', 4); 
     sendCmdWithDelay('right 50', 6); 
-    sendCmdWithDelay('land', 8);   
+    sendCmdWithDelay('land', 8);   */
     
   }
 };

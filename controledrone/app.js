@@ -4,22 +4,11 @@ const path = require('path');
 const routes = require('./routes');
 const runScript = require('./routes/runscript');
 const bodyParser = require('body-parser');
-//const RedisStore =require('connect-redis')(session);
-//const session = require('express-session');
 
-
-//app.use(session({
-  //store: new RedisStore({
-    // configure the Redis client options as needed
-    //host: '127.0.0.1',
-   // port: 6379
-  //}),
-  //secret: 'your-secret-key',
-  //resave: false,
-  //saveUninitialized: true
-//}));
 // Définir le dossier statique
 app.use('/scripts', express.static(path.join(__dirname, 'scripts')));
+
+
 
 // Définir les routes pour les zones
 app.use('/', routes);
@@ -39,6 +28,8 @@ app.post('/runscript', (req, res) => {
   runScript(scriptName);
   res.send(`Script "${scriptName}" lancé.`);
 });
+
+
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');

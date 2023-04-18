@@ -1,4 +1,4 @@
-const Tello = require('../../src/tello');
+const Tello = require('../../node_modules/@harleylara/tello-js/src/tello');
 
 
 module.exports = {

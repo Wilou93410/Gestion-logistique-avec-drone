@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-
 const zone3Script = require('../scripts/zone3script');
 
 router.post('/', (req, res) => {
