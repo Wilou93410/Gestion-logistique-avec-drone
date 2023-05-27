@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Liste des zones</title>
+  <%- include('./style'); %>
+</head>
+<body>
+  
+
+
+  <h1>Choisis une zone</h1>
+  <form action="/vol" method="post" class="form">
+    <% for (let i = 0; i < zones.length; i++) { %>
+      <label for="<%= zones[i].id %>">rack <%= zones[i].rack %> ligne <%= zones[i].line %> rangée <%= zones[i].row %></label>
+      <input type="radio" id="<%= zones[i].id_location %>" name="zoneId" value="<%= zones[i].id_location %>"> <br>
+    <% } %>
+    <input type="submit" value="scanner le code barre">
+  </form>
+  
+</body>
+</html>
+

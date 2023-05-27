@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "@harleylara/tello-js": "^1.0.4",
+    "@zxing/library": "^0.20.0",
+    "@zxing/text-encoding": "^0.9.0",
+    "barcode-reader": "^1.6.1",
+    "cookie": "^0.5.0",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "ffmpeg-static": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "jimp": "^0.22.8",
+    "jsqr": "^1.4.0",
+    "mysql": "^2.18.1",
+    "parser": "^0.1.4",
+    "path": "^0.12.7",
+    "quagga": "^0.12.1",
+    "tesseract.js": "^4.0.6",
+    "ts-custom-error": "^3.3.1",
+    "ws": "^8.13.0"
+  }
+}
