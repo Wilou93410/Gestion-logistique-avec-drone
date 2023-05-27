@@ -1,5 +1,17 @@
-# pageweb
-La page web inclut un CRUD d'utilisateur et un CRUD des scans.
-elle est conçu pour fonctionner avec le code de ce git : https://github.com/WillBero/Projetdrone sans les fichiers de ce git il est pas possible d'aller plus loin que la page index.php.
+# Installation.
+Installez Nodejs et NPM.
+Pour utiliser ce projet, il faut cloner ce fichier.
+Ensuite, dans le répertoire principal de ce projet installez la bibliothèque TelloJs d'harley lara : https://www.npmjs.com/package/@harleylara/tello-js.
+Après, il faut installer les dépendances suivantes :
+-Express
+-Cookie-parser
+-Tesseract.js
+-Cookie-parser
+-Fs
+-jimp
+-path
+-mysql
+-ejs
+
 
 
