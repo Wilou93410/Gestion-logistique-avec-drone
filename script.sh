@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Chemin du fichier app.js
-Drone="/var/www/html/projet-logistic/app.js"
+Drone="/var/www/html/logistic_drone/app.js"
 
 # Atttente 5 minutes après le démarrage
 sleep 5m
