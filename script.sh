@@ -3,8 +3,8 @@
 # Chemin du fichier app.js
 Drone="/var/www/html/logistic_drone/app.js"
 
-# Atttente 5 minutes après le démarrage
-sleep 5m
+# Atttente 3 minutes après le démarrage
+sleep 3m
 
 # Fonction pour lancer app.js
 start_app() {
