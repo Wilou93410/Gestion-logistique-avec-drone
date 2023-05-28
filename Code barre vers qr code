@@ -1,0 +1,141 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <zxing/common/BitMatrix.h>
+#include <zxing/qrcode/QRCodeWriter.h>
+#include <zxing/BarcodeFormat.h>
+#include <zxing/encode/MatrixToImageWriter.h>
+#include <mysql/mysql.h>
+#include <cpprest/http_listener.h>
+#include <cpprest/json.h>
+
+using namespace std;
+using namespace zxing;
+using namespace zxing::qrcode;
+using namespace web;
+using namespace web::http;
+using namespace web::http::experimental::listener;
+
+void generateQRCode(const string& data, const string& filename)
+{
+    QRCodeWriter writer;
+    BitMatrix bitMatrix;
+
+    try
+    {
+        // Encoder les données en QR code
+        Ref<BitMatrix> bitMatrix = writer.encode(data, BarcodeFormat::QR_CODE, 512, 512);
+
+        // Convertir le BitMatrix en image PNG
+        ofstream output(filename, ios::binary);
+        MatrixToImageWriter::writeToStream(bitMatrix, ImageFormat::PNG, output);
+        output.close();
+
+        cout << "QR code generated successfully." << endl;
+    }
+    catch (const zxing::Exception& e)
+    {
+        cerr << "Error generating QR code: " << e.what() << endl;
+    }
+}
+
+string getCartonInfoFromDatabase(const string& barcode)
+{
+    string cartonInfo;
+
+    // Connecter à la base de données
+    MYSQL* conn = mysql_init(NULL);
+    if (conn == NULL)
+    {
+        cerr << "Error initializing database connection." << endl;
+        return cartonInfo;
+    }
+
+    if (mysql_real_connect(conn, "localhost", "username", "password", "database", 0, NULL, 0) == NULL)
+    {
+        cerr << "Error connecting to the database: " << mysql_error(conn) << endl;
+        return cartonInfo;
+    }
+
+    // Exécuter la requête pour récupérer les informations du carton
+    string query = "SELECT * FROM Cartons WHERE reference = '" + barcode + "'";
+    if (mysql_query(conn, query.c_str()) != 0)
+    {
+        cerr << "Error executing database query: " << mysql_error(conn) << endl;
+        return cartonInfo;
+    }
+
+    MYSQL_RES* result = mysql_store_result(conn);
+    if (result == NULL)
+    {
+        cerr << "Error retrieving database result: " << mysql_error(conn) << endl;
+        return cartonInfo;
+    }
+
+    // Récupérer les informations du carton depuis le résultat de la requête
+    MYSQL_ROW row = mysql_fetch_row(result);
+    if (row != NULL)
+    {
+        cartonInfo = "Carton ID: " + string(row[0]) + "\n";
+        cartonInfo += "Barcode: " + string(row[1]) + "\n";
+        cartonInfo += "Description: " + string(row[2]) + "\n";
+        // Ajouter d'autres informations si nécessaire
+    }
+
+    // Libérer la mémoire et fermer la connexion à la base de données
+    mysql_free_result(result);
+    mysql_close(conn);
+
+    return cartonInfo;
+}
+
+void handleGetRequest(const http_request& request)
+{
+    // Récupérer la variable "barcode" depuis la requête
+    auto barcode = uri::decode(request.absolute_uri().query());
+
+    // Récupérer les informations du carton depuis la base de données
+    string cartonInfo = getCartonInfoFromDatabase(barcode);
+
+    // Générer le QR code avec les informations du carton
+    string filename = "qrcode.png";
+    generateQRCode(cartonInfo, filename);
+
+    // Envoyer le QR code généré en réponse
+    http_response response;
+    response.set_status_code(status_codes::OK);
+    response.headers().add("Content-Disposition", "attachment; filename=qrcode.png");
+    response.headers().add("Content-Type", "image/png");
+    auto fileStream = std::make_shared<concurrency::streams::ostream>();
+    *fileStream = concurrency::streams::file_stream<uint8_t>::open_istream(U(filename), std::ios::binary).get();
+    response.set_body(fileStream);
+
+    request.reply(response);
+}
+
+int main()
+{
+    // Configurer le gestionnaire de requêtes HTTP
+    http_listener listener(L"http://localhost:3004");
+    listener.support(methods::GET, handleGetRequest);
+
+    try
+    {
+        // Démarrer le serveur
+        listener.open().wait();
+
+        cout << "Server is listening on http://localhost:3004" << endl;
+        cout << "Press Enter to exit." << endl;
+        cin.get();
+    }
+    catch (const exception& e)
+    {
+        cerr << "Error starting server: " << e.what() << endl;
+    }
+
+    // Arrêter le serveur
+    listener.close().wait();
+
+    return 0;
+}
