@@ -6,9 +6,6 @@ APP_DIR="$(dirname "$(readlink -f "$0")")"
 # Nom du fichier app.js
 APP_FILE="app.js"
 
-# Attente de 2 minutes après le démarrage
-sleep 2m
-
 # Fonction pour lancer app.js
 start_app() {
     echo "Démarrage du fichier app.js."
