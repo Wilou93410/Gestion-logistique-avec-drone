@@ -1,27 +1,20 @@
 #!/bin/bash
 
 # Chemin du fichier app.js
-Drone="/var/www/html/logistic_drone/app.js"
+APP_PATH="/var/www/logistic_drone/app.js"
 
-# Atttente 3 minutes après le démarrage
+# Attente de 3 minutes après le démarrage
 sleep 3m
 
 # Fonction pour lancer app.js
 start_app() {
     echo "Démarrage du fichier app.js."
     # Lancement du fichier app.js avec Node.js
-    node "$Drone" &
+    node "$APP_PATH" &
 }
 
-# Vérification toutes les 2 minutes si app.js est en cours d'exécution
-while true; do
-    if pgrep -f "node $Drone" >/dev/null; then
-        echo "Le fichier app.js est déjà en cours d'exécution."
-    else
-        echo "Le fichier app.js est arrêté. Redémarrage en cours..."
-        start_app
-    fi
-    sleep 2m
-done
+# Lancer le fichier app.js
+start_app
 
+echo "Le fichier app.js a été lancé."
 
