@@ -11,12 +11,11 @@ if(isset($_GET['search'])) {
     $search = $_GET['search'];
 }
 
-$query = "SELECT carton.id_carton, carton.content, carton.delivery_date, carton.weight, supplier.id_supplier, supplier.address, supplier.postal_code, supplier.country, supplier.city, supplier.corporate_name, location.rack, location.row, location.line 
+$query = "SELECT carton.id_carton, carton.content, carton.delivery_date, carton.weight, supplier.id_supplier, supplier.address,
+supplier.postal_code, supplier.country, supplier.city, supplier.corporate_name
           FROM carton 
           INNER JOIN supplier 
           ON carton.id_supplier = supplier.id_supplier 
-          INNER JOIN location
-           ON carton.id_location = location.id_location
           WHERE 
             carton.id_carton LIKE :search OR 
             carton.content LIKE :search OR 

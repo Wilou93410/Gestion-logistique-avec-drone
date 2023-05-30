@@ -5,7 +5,7 @@ if ($_SESSION['permission'] !== "admin") {
     exit;
 }
 
-require_once "../../config/config.php";
+require "../../config/config.php";
 
 $search = '';
 $sort_by = '';

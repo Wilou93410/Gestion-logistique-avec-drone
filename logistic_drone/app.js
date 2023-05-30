@@ -3,13 +3,29 @@ const flyToPosition = require('./scripts/vol');
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+const path= require('path');
 
+app.use(cookieParser());
 // Configuration du moteur de template EJS
 app.set('view engine', 'ejs');
-
 // Configuration du dossier public pour servir les fichiers statiques
-app.use(express.static(__dirname + '/public'));
+app.set('views', path.join(__dirname, 'views'));
+
+
+const requireAuthentication = (req, res, next) => {
+  // Vérifier si l'utilisateur est connecté en vérifiant la présence du cookie "id_user"
+  if (req.cookies.id_user) {
+    // L'utilisateur est connecté, passer à la route suivante
+    next();
+  } else {
+    // L'utilisateur n'est pas connecté, rediriger vers une page de connexion par exemple
+    res.redirect('http://192.168.0.80'); // 
+  }
+};
+
+
+app.use(requireAuthentication);
+
 
 // Configuration des routes
 app.get('/', (req, res) => {
@@ -48,16 +64,23 @@ app.get('/user', (req, res) => {
   console.log('permission :', permission);
   if (permission === 'admin') {
     // Rediriger l'utilisateur vers admin.php
-    res.redirect('http://localhost/admin/admin.php');
+    res.redirect('http://192.168.0.80//admin/admin.php');
   } else if (permission === 'user') {
     // Rediriger l'utilisateur vers user.php
-    res.redirect('http://localhost/user/user.php');
+    res.redirect('http://192.168.0.80/user/user.php');
   } else {
     // Gérer le cas où la permission n'est pas définie ou a une valeur inattendue
     res.send('Erreur : permission invalide');
   }
 });
-// Exporter la variable userId
+// Deconnexion
+app.post('/logout', (req, res) => {
+  // Supprimer le cookie "id_user"
+  res.clearCookie('id_user');
+  res.redirect('http://http://192.168.0.80'); 
+});
+
+
 
 // Démarrage du serveur
 app.listen(3003, () => {

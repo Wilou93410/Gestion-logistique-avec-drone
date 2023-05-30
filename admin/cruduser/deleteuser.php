@@ -52,11 +52,9 @@ if (isset($_POST['user'])) {
         </div>
         
         <button type="submit" value="supprimer">supprimer</button>       
-         
-            </Div>    
+        
     </form>
 
-  
     <div class ="deco">
         <button onclick="window.location.href = '../admin.php';">retour</button>
     </div>
