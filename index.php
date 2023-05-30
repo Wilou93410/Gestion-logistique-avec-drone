@@ -26,10 +26,10 @@ if (isset($_POST['submit'])) {
         setcookie('id_user', urlencode($id_user), time() + 3600, '/');
 
         if ($user_role == 'admin') { 
-            header("Location: http://localhost:3003/user");
+            header("Location: http://192.168.0.80:3003/user");
             exit;
         } else if ($user_role == 'user') {
-            header("Location: http://localhost:3003/user");
+            header("Location: http://192.168.0.80:3003/user");
             exit;
         } else {
             echo "nom d'utilisateur ou mot de passe incorrect";
