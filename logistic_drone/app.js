@@ -77,7 +77,7 @@ app.get('/user', (req, res) => {
 app.post('/logout', (req, res) => {
   // Supprimer le cookie "id_user"
   res.clearCookie('id_user');
-  res.redirect('http://http://192.168.0.80'); 
+  res.redirect('http://192.168.0.80'); 
 });
 
 
