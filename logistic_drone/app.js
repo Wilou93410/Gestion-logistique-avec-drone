@@ -64,7 +64,7 @@ app.get('/user', (req, res) => {
   console.log('permission :', permission);
   if (permission === 'admin') {
     // Rediriger l'utilisateur vers admin.php
-    res.redirect('http://192.168.0.80//admin/admin.php');
+    res.redirect('http://192.168.0.80/admin/admin.php');
   } else if (permission === 'user') {
     // Rediriger l'utilisateur vers user.php
     res.redirect('http://192.168.0.80/user/user.php');
