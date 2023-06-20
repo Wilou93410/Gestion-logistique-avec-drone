@@ -19,7 +19,7 @@ const requireAuthentication = (req, res, next) => {
     next();
   } else {
     // L'utilisateur n'est pas connecté, rediriger vers une page de connexion par exemple
-    res.redirect('http://192.168.0.80'); // 
+    res.redirect('http://localhost/projetclean'); // Remplacez "http://localhost/projetclean" par l'URL de votre page de connexion
   }
 };
 
@@ -64,10 +64,10 @@ app.get('/user', (req, res) => {
   console.log('permission :', permission);
   if (permission === 'admin') {
     // Rediriger l'utilisateur vers admin.php
-    res.redirect('http://192.168.0.80/admin/admin.php');
+    res.redirect('http://localhost/projetclean/admin/admin.php');
   } else if (permission === 'user') {
     // Rediriger l'utilisateur vers user.php
-    res.redirect('http://192.168.0.80/user/user.php');
+    res.redirect('http://localhost/projetclean/user/user.php');
   } else {
     // Gérer le cas où la permission n'est pas définie ou a une valeur inattendue
     res.send('Erreur : permission invalide');
@@ -77,7 +77,7 @@ app.get('/user', (req, res) => {
 app.post('/logout', (req, res) => {
   // Supprimer le cookie "id_user"
   res.clearCookie('id_user');
-  res.redirect('http://192.168.0.80'); 
+  res.redirect('http://localhost/projetclean'); // Remplacez "http://localhost" par l'URL de votre page de connexion
 });
 
 
